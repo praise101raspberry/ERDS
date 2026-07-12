@@ -13,6 +13,12 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 
 from pages.dashboard import DashboardPage
+from pages.incidents import IncidentsPage
+from pages.dispatch import DispatchPage
+from pages.responders import RespondersPage
+from pages.vehicles import VehiclesPage
+from pages.reports import ReportsPage
+from pages.settings import SettingsPage
 
 
 class DispatcherWindow(QMainWindow):
@@ -61,23 +67,13 @@ class DispatcherWindow(QMainWindow):
 
         dashboard = DashboardPage()
 
-        incidents = QLabel("🚨 Incidents Page")
-        incidents.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        dispatch = QLabel("🚑 Dispatch Page")
-        dispatch.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        responders = QLabel("👮 Responders Page")
-        responders.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        vehicles = QLabel("🚒 Vehicles Page")
-        vehicles.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        reports = QLabel("📊 Reports Page")
-        reports.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        settings = QLabel("⚙️ Settings Page")
-        settings.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        dashboard = DashboardPage()
+        incidents = IncidentsPage()
+        dispatch = DispatchPage()
+        responders = RespondersPage()
+        vehicles = VehiclesPage()
+        reports = ReportsPage()
+        settings = SettingsPage()
 
         self.pages.addWidget(dashboard)
         self.pages.addWidget(incidents)
