@@ -56,3 +56,14 @@ class APIClient:
 
         response.raise_for_status()
         return response.json()
+    
+    def update_incident(self, incident_id, data):
+        response = requests.put(
+            f"{self.base_url}/incidents/{incident_id}",
+            json=data,
+            headers=self.headers
+        )
+
+        response.raise_for_status()
+
+        return response.json()
