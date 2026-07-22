@@ -61,9 +61,8 @@ class APIClient:
         response = requests.put(
             f"{self.base_url}/incidents/{incident_id}",
             json=data,
-            headers=self.headers
+            headers=self._headers()
         )
 
         response.raise_for_status()
-
         return response.json()

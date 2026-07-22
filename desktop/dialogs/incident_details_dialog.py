@@ -8,10 +8,11 @@ from PyQt6.QtWidgets import (
     QLineEdit,
     QComboBox,
     QTextEdit,
+    QMessageBox,
 )
 
 from PyQt6.QtCore import Qt
-
+from services.api_client import APIClient
 
 class IncidentDetailsDialog(QDialog):
 
@@ -19,6 +20,7 @@ class IncidentDetailsDialog(QDialog):
         super().__init__(parent)
 
         self.incident = incident
+        self.api = APIClient()
 
         self.setWindowTitle("Incident Details")
         self.resize(550, 500)
@@ -150,38 +152,34 @@ class IncidentDetailsDialog(QDialog):
 
     def save_changes(self):
 
-        print("===== Incident Updated =====")
+        data = {
+            "caller_name": self.caller_name.text(),
+            "caller_phone": self.phone.text(),
+            "priority": self.priority.currentText(),
+            "status": self.status.currentText(),
+            "address": self.address.text(),
+            "description": self.description.toPlainText()
+        }
 
-        print(
-            "Caller:",
-            self.caller_name.text()
-        )
+        try:
 
-        print(
-            "Phone:",
-            self.phone.text()
-        )
+            updated_incident = self.api.update_incident(
+                self.incident["id"],
+                data
+            )
 
-        print(
-            "Priority:",
-            self.priority.currentText()
-        )
+            QMessageBox.information(
+                self,
+                "Success",
+                "Incident updated successfully."
+            )
 
-        print(
-            "Status:",
-            self.status.currentText()
-        )
+            self.accept()
 
-        print(
-            "Address:",
-            self.address.text()
-        )
+        except Exception as e:
 
-        print(
-            "Description:",
-            self.description.toPlainText()
-        )
-
-        print("============================")
-
-        self.accept()
+            QMessageBox.critical(
+                self,
+                "Update Failed",
+                str(e)
+            )

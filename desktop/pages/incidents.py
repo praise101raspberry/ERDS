@@ -107,12 +107,10 @@ class IncidentsPage(QWidget):
 
         incident = self.incidents[row]
 
-        dialog = IncidentDetailsDialog(
-            incident,
-            self
-        )
+        dialog = IncidentDetailsDialog(incident, self)
 
-        dialog.exec()
+        if dialog.exec():
+            self.load_incidents()
 
     def new_incident(self):
 
